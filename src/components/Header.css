@@ -1,0 +1,10 @@
+.fondoNav {
+  height: 400px;
+  background-image: url(/public/img/cinema-strip-2713352_960_720.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+h1 {
+  font-size: 3rem;
+}
