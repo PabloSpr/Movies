@@ -1,7 +1,7 @@
 const tmdbAPIConfig = {
   baseURL: "https://api.themoviedb.org/3/",
   params: {
-    api_key: "f12c72419a7710fcff20686356d86a21",
+    api_key: process.env.REACT_APP_MOVIE_KEY,
     page: 1,
     include_adult: false,
     language: "en-US",

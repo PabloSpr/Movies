@@ -1,32 +1,35 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-
+import { Spinner } from "react-bootstrap";
 import axios from "axios";
-import Header from "../components/Header";
 import Movies from "../components/Movies";
 import tmdbAPIConfig from "../tmdbAPICongig";
 
-function Home({ page, setPage, movies, setMovies }) {
-  //const [movies, setMovies] = useState([]);
-  //const [page, setPage] = useState(1);
-  const location = useLocation();
+function Home() {
+  const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
     const getMovies = async () => {
       tmdbAPIConfig.params.page = page;
-      const response = await axios.get("discover/movie", tmdbAPIConfig);
+      const response = await axios.get("trending/movie/day", tmdbAPIConfig);
       setMovies((movies) => [...movies, ...response.data.results]);
-
-      console.log("HOME", location.pathname);
     };
-    if (location.pathname === "/") {
-      console.log("HOME", location.pathname);
-      getMovies();
-    }
+
+    getMovies();
   }, [page]);
 
+  if (movies.length === 0) {
+    return (
+      <div className="d-flex justify-content-center mt-5 ">
+        <Spinner animation="border" role="status" className="my-5">
+          <span className="visually-hidden">Loading</span>
+        </Spinner>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <Header />
+    <div className=" p-4 text-center">
       <Movies movies={movies} setPage={setPage} page={page} />
     </div>
   );
